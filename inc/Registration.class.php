@@ -42,14 +42,14 @@ class Registration {
 
     $sql = '
       CREATE TABLE IF NOT EXISTS "lrf_location" (
-        "id"	TEXT NOT NULL,
-        "location"	TEXT NOT NULL,
-        "public_key"	BLOB NOT NULL,
-        "active"	INTEGER DEFAULT 1,
-        "remove"	INTEGER DEFAULT 0,
-        "timestamp"	INTEGER,
-        PRIMARY KEY("id")
-      );
+      	"id"	TEXT NOT NULL,
+      	"location"	TEXT NOT NULL,
+      	"public_key"	BLOB NOT NULL,
+      	"active"	INTEGER DEFAULT 1,
+      	"remove"	INTEGER DEFAULT 0,
+      	"timestamp"	INTEGER,
+      	PRIMARY KEY("id")
+      )
     ';
     $this->dbi->query($sql);
 
@@ -57,18 +57,17 @@ class Registration {
       CREATE TABLE IF NOT EXISTS "lrf_registration" (
       	"id"	TEXT NOT NULL,
       	"location"	TEXT NOT NULL,
-      	"timestamp"	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      	"duration"	INTEGER NOT NULL,
-      	"vorname"	TEXT NOT NULL,
-      	"nachname"	TEXT NOT NULL,
-      	"anschrift"	TEXT NOT NULL,
-      	"plz"	TEXT NOT NULL,
-      	"ort"	TEXT NOT NULL,
-      	"email"	TEXT NOT NULL,
-      	"telefon"	TEXT NOT NULL,
-      	FOREIGN KEY("location") REFERENCES "lrf_location"("id") ON DELETE CASCADE ON UPDATE CASCADE,
-      	PRIMARY KEY("id")
-      );
+      	"datetime"	NUMERIC NOT NULL,
+      	"duration"	NUMERIC NOT NULL,
+      	"name"	BLOB NOT NULL,
+      	"anschrift"	BLOB NOT NULL,
+      	"plz"	BLOB NOT NULL,
+      	"ort"	BLOB NOT NULL,
+      	"email"	BLOB NOT NULL,
+      	"telefon"	BLOB NOT NULL,
+      	PRIMARY KEY("id"),
+      	FOREIGN KEY("location") REFERENCES "lrf_location"("id") ON DELETE CASCADE ON UPDATE CASCADE
+      )
     ';
     $this->dbi->query($sql);
   }
