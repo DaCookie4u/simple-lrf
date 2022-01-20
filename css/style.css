@@ -1,0 +1,60 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-size: 18px;
+}
+header {
+  margin-top: 2rem;
+}
+h3 {
+  margin: 1.5rem .5rem 0;
+  text-align: center;
+}
+.header__logo {
+  max-width: 100%;
+  height: auto;
+}
+.mt_1rem {
+  margin-top: 1rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+legend + .form-group {
+  margin-top: 0;
+}
+.form-group__label {
+  margin-bottom: .5rem;
+}
+.button {
+  margin-top: 1rem;
+  padding: .5rem 1rem;
+  border-radius: 6px;
+}
+input, select {
+  padding: 3px 6px;
+}
+INPUT::-webkit-input-placeholder{
+  font-size: 16px;
+}
+INPUT:-moz-placeholder {
+  font-size: 16px;
+}
+input[placeholder], select {
+  font-size: 16px;
+}
+.form-checkbox__container {
+  margin-top: 1rem;
+}
