@@ -27,7 +27,7 @@ if ($reg->SetLocation($_POST['location']) && isset($_POST['key'])) {
 } else {
 ?>
 <form action="export.php" method="POST" target="_self">
-<input type="text" name="location" value="ea78f9de-ac27-49e2-8983-c79736482a44" /><br />
+<input type="text" name="location" /><br />
 <textarea name="key"></textarea><br />
 <input type="submit" value="Absenden" />
 </form>
