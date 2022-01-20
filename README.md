@@ -10,7 +10,7 @@ RewriteRule ^/([0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}
 # Forbid export.php
 ```
 <Directory /path/to/export.php>
-        Order allow,deny
+        Order Deny,Allow
         Deny from all
         Allow from 192.168.0.0/24
 </Directory>
