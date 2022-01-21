@@ -58,3 +58,11 @@ input[placeholder], select {
 .form-checkbox__container {
   margin-top: 1rem;
 }
+#privacy, #saving, #content {
+  padding: 1.5rem;
+  max-width: 360px;
+  margin: 0 auto 0;
+}
+.centered {
+  text-align: center;
+}

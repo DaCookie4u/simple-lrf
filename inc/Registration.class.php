@@ -63,7 +63,6 @@ class Registration {
       	"anschrift"	BLOB NOT NULL,
       	"plz"	BLOB NOT NULL,
       	"ort"	BLOB NOT NULL,
-      	"email"	BLOB NOT NULL,
       	"telefon"	BLOB NOT NULL,
       	PRIMARY KEY("id"),
       	FOREIGN KEY("location") REFERENCES "lrf_location"("id") ON DELETE CASCADE ON UPDATE CASCADE
@@ -100,7 +99,7 @@ class Registration {
   public function CleanRegistrations() {
     $obsoleteDt = new DateTime('now');
     $obsoleteDt->setTime(0,0);
-    $obsoleteDt->sub(new DateInterval('P2W'));
+    $obsoleteDt->sub(new DateInterval('P4W'));
     $timestamp = $obsoleteDt->getTimestamp();
 
     $sql = 'DELETE FROM lrf_registration WHERE datetime < :timestamp;';
@@ -114,7 +113,7 @@ class Registration {
   // create a new messages, returns:
   //  1: id from the database table
   //  2: key for decryption in hex
-  public function Register($name, $address, $zip, $city, $email, $phone, $duration) {
+  public function Register($name, $address, $zip, $city, $phone, $duration) {
     $this->dbId = $this->uuidv4();
     $currentDt = new DateTime('now');
     $timestamp = $currentDt->getTimestamp();
@@ -124,12 +123,11 @@ class Registration {
     $address = $this->Encrypt($address);
     $zip = $this->Encrypt($zip);
     $city = $this->Encrypt($city);
-    $email = $this->Encrypt($email);
     $phone = $this->Encrypt($phone);
 
     // insert the hashed $key and the encrypted $data inside the table
     // the dbquery() will return the insert id
-    $sql = 'INSERT INTO lrf_registration (id, location, datetime, duration, name, anschrift, plz, ort, email, telefon) VALUES (:id, :location, :timestamp, :duration, :name, :anschrift, :plz, :ort, :email, :telefon);';
+    $sql = 'INSERT INTO lrf_registration (id, location, datetime, duration, name, anschrift, plz, ort, telefon) VALUES (:id, :location, :timestamp, :duration, :name, :anschrift, :plz, :ort, :telefon);';
     $this->dbi->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     $stmt = $this->dbi->prepare($sql);
     $stmt->bindParam(':id', $this->dbId);
@@ -140,7 +138,6 @@ class Registration {
     $stmt->bindParam(':anschrift', $address);
     $stmt->bindParam(':plz', $zip);
     $stmt->bindParam(':ort', $city);
-    $stmt->bindParam(':email', $email);
     $stmt->bindParam(':telefon', $phone);
     $stmt->execute();
     $stmt = null;

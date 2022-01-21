@@ -12,7 +12,7 @@ if (isset($_GET['location']) && $reg->SetLocation($_GET['location'])) {
 }
 
 if ($locationId && isset($_POST['duration'])) {
-    $id = $reg->Register($_POST['name'], $_POST['address'], $_POST['zip'], $_POST['city'], $_POST['email'], $_POST['phone'], $_POST['duration']);
+    $id = $reg->Register($_POST['name'], $_POST['address'], $_POST['zip'], $_POST['city'], $_POST['phone'], $_POST['duration']);
 }
 ?>
 
@@ -37,7 +37,7 @@ if ($locationId && isset($_POST['duration'])) {
     </header>
     <h3><?php echo ($locationId) ? $reg->GetLocationName() : 'Location unbekannt!'; ?></h3>
 <?php if ($id) { ?>
-    <p>Vielen Dank für deine Registrierung.</p>
+    <p class="centered">Vielen Dank für Ihre Registrierung.</p>
 <?php } else if ($locationId) { ?>
     <script type="text/javascript">
       // validate form
@@ -45,7 +45,6 @@ if ($locationId && isset($_POST['duration'])) {
         // save form if checked
         if (document.getElementById("save-checkbox").checked) {
           localStorage.setItem("name", document.getElementById("name").value);
-          localStorage.setItem("email", document.getElementById("email").value);
           localStorage.setItem("phone", document.getElementById("phone").value);
           localStorage.setItem("address", document.getElementById("address").value);
           localStorage.setItem("zip", document.getElementById("zip").value);
@@ -57,7 +56,6 @@ if ($locationId && isset($_POST['duration'])) {
       // retrieve savedata
       document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("name").value = localStorage.getItem("name");
-        document.getElementById("email").value = localStorage.getItem("email");
         document.getElementById("phone").value = localStorage.getItem("phone");
         document.getElementById("address").value = localStorage.getItem("address");
         document.getElementById("zip").value = localStorage.getItem("zip");
@@ -80,16 +78,16 @@ if ($locationId && isset($_POST['duration'])) {
           />
         </label>
 
-        <!-- Email -->
-        <label class="form-group">
-          <span class="form-group__label required">Email</span>
+        <!-- Phone -->
+        <label class="form-group block">
+          <span class="form-group__label required">Telefon</span>
           <input
-            class="form-text"
-            type="email"
-            id = "email"
-            name="email"
-            placeholder="max@mustermann.de"
-            inputmode="email"
+            class="form-text turn-off-number-input-arrows"
+            type="number"
+            id="phone"
+            name="phone"
+            placeholder="+49 170 12345678"
+            inputmode="tel"
             required
           />
         </label>
@@ -138,23 +136,9 @@ if ($locationId && isset($_POST['duration'])) {
           </label>
         </fieldset>
 
-        <!-- Phone -->
-        <label class="form-group block">
-          <span class="form-group__label required">Telefon</span>
-          <input
-            class="form-text turn-off-number-input-arrows"
-            type="number"
-            id="phone"
-            name="phone"
-            placeholder="+49 170 12345678"
-            inputmode="tel"
-            required
-          />
-        </label>
-
         <!-- Length of Stay -->
         <label class="form-group block">
-          <span class="form-group__label">vorraussichtliche Verweildauer</span>
+          <span class="form-group__label">Vorraussichtliche Verweildauer</span>
           <select class="form-select" id="duration" name="duration" required>
             <option value="" selected disabled hidden>Bitte auswählen</option>
             <option value="15">15 Minuten</option>
@@ -177,7 +161,7 @@ if ($locationId && isset($_POST['duration'])) {
         <!-- Save form to local storage -->
         <label class="form-checkbox__container">
           <input value="save form data" class="form-checkbox__input" id="save-checkbox" name="save-checkbox" type="checkbox">
-          <span>Daten für den nächsten Besuch <a href="#save">speichern</a>.</span>
+          <span>Daten für den nächsten Besuch <a href="#saving">speichern</a>.</span>
         </label>
 
         <!-- Submit -->
@@ -189,7 +173,24 @@ if ($locationId && isset($_POST['duration'])) {
       </form>
 
       <div id="privacy">
-        Datenschutzinformation: Wir sind nach § 11 Absatz 2, Satz 2 der Hamburgischen SARS-CoV-2-Eindämmungsverordnung verpflichtet, die Kontaktdaten zur Nachverfolgung einer Infektionskette durch das Gesundheitsamt zu erheben und zu speichern. Die Daten werden verschlüsselt an einen Server des Buddhistischen Zentrums Hamburg gesendet, verschlüsselt gespeichert und nach 14 Tagen automatisch gelöscht. Eine sonstige Weitergabe an Dritte erfolgt nicht.
+        <fieldset>
+          <legend>Datenschutzinformation</legend>
+          Wir sind nach § 11 Absatz 2, Satz 2 der Hamburgischen SARS-CoV-2-Eindämmungsverordnung verpflichtet, die Kontaktdaten zur Nachverfolgung einer Infektionskette durch das Gesundheitsamt zu erheben und zu speichern. Die Daten werden verschlüsselt an einen Server des Buddhistischen Zentrums Hamburg gesendet, verschlüsselt gespeichert und nach 4 Wochen automatisch gelöscht. Eine sonstige Weitergabe an Dritte erfolgt nicht.
+        </fieldset>
+      </div>
+
+      <div id="saving">
+        <fieldset>
+          <legend>Daten speichern</legend>
+          Bei Auswahl dieser Option werden die eingegeben Daten lokal auf Ihrem Gerät gespeichert und bei erneutem Aufruf wiederhergestellt. Um die lokalen Daten zu speichern benötigt diese Seite Javascript. Sie können die Daten mit diesem <a href="/<?php echo $locationId ?>" onclick="localStorage.clear();">Link löschen</a>.
+        </fieldset>
+      </div>
+
+      <div id="content">
+        <fieldset>
+          <legend>Impressum</legend>
+          Verantwortlich im Sinne der Datenschutz-Grundverordnung sind die <a href="http://www.buddhismus-nord.de/zentren/hamburg/datenschutz.php">Buddhistischen Zentren Norddeutschland e.V.</a>.
+        </fieldset>
       </div>
     </div>
 <?php } ?>
